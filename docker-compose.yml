@@ -1,0 +1,34 @@
+version: "3.9" # optional since v1.27.0
+
+services:
+ webserver:
+   image: nareshreddy1238/ecomm
+   ports:
+     - "8080:80"
+   volumes:
+     - ~/myvol:/data
+ 
+ nginx1:
+   image: nareshreddy1238/nginx:ubuntu
+   ports:
+     - "8081:80"
+
+ nginx2:
+   image: nareshreddy1238/nginx:centos
+   ports:
+     - "8082:80"
+
+ nodejs_server:
+   image: nareshreddy1238/nodejs:ubuntu
+   ports:
+     - "8083:8080"
+   volumes:
+     - myapp:/home/node/app
+   networks:
+     - mynetwork1
+volumes:
+ myapp:
+networks:
+ mynetwork1:
+     
+
