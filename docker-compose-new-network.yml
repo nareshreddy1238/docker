@@ -1,0 +1,53 @@
+version: "3.9" # optional since v1.27.0
+
+services:
+ webserver:
+   image: nareshreddy1238/ecomm
+   ports:
+     - "8080:80"
+   volumes:
+     - ~/myvol:/data
+   networks:
+     mynet:
+       ipv4_address: 192.168.0.2
+
+ 
+ nginx1:
+   image: nareshreddy1238/nginx:ubuntu
+   ports:
+     - "8081:80"
+   networks:
+     mynet:
+       ipv4_address: 192.168.0.3
+
+
+ nginx2:
+   image: nareshreddy1238/nginx:centos
+   ports:
+     - "8082:80"
+   networks:
+     mynet:
+       ipv4_address: 192.168.0.4
+
+
+ nodejs_server:
+   image: nareshreddy1238/nodejs:ubuntu
+   ports:
+     - "8083:8080"
+   volumes:
+     - myapp:/home/node/app
+   networks:
+     mynet:
+       ipv4_address: 192.168.0.5
+
+volumes:
+ myapp:
+networks:
+ mynet:
+   ipam:
+     driver: default
+     config: 
+       - subnet: "192.168.0.0/24"
+         gateway: 192.168.0.1
+     
+
